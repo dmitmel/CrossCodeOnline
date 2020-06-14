@@ -1,7 +1,8 @@
 'use strict';
 
-const CONFIG = require('../assets/mods/multiplayer/config.js');
+import CONFIG from './config.js';
 
+const MOD_BASE_URL = new URL('./', import.meta.url).pathname;
 
 if (!CONFIG.playerName) {
 	CONFIG.playerName = '' + Math.round((Math.random() * Math.pow(10, 10)));
@@ -331,20 +332,19 @@ class AnimationContainer {
 
 class WebSocketServer {
 	setupUi() {
-		let gui = require('nw.gui');
-		let mainWin = gui.Window.get();
-		let newWin = gui.Window.open('../assets/mods/multiplayer/webSocket.html', {
+		let mainWin = nw.Window.get();
+		let newWin = nw.Window.open(`${MOD_BASE_URL}webSocket.html`, {
 			width: 700,
 			height: 500
 		});
 		
 		// mainWin.on('close', () => {
-		// 	gui.App.quit();
+		// 	nw.App.quit();
 		// })
 	}
 	
 	startServer(port) {
-		let Server = require('../assets/mods/multiplayer/simplewebsocket.min.js');
+		let Server = require(require('path').join(process.cwd(), MOD_BASE_URL, 'node_modules', 'ws'));
 		console.log(Server);
 		console.log('start server');
 		if (this.server) {

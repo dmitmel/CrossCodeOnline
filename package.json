@@ -1,5 +1,6 @@
 {
 	"name": "multiplayer",
+	"module": true,
 	"main": "mod.js",
 	"devDependencies": {
 		"babel-cli": "^6.26.0",
